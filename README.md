@@ -1,2 +1,2 @@
 # Spatial-Analysis
-This a repository for spatial analysis using R
+This is a repository for spatial analysis using R
