@@ -5,12 +5,27 @@
 ## installing and loading packages 
 ## highlighting depreciation
 ## 
-
 install.packages("GISTools", dependencies = T) 
 # if this fails because of versioning eg with R 3.1.2 try
 install.packages("GISTools", type = "source") 
- 
 library(GISTools)
-
-data(newhaven)# the variables can be used in other operations 
-overlay(places, blocks)
+data(newhaven)
+# the variables can be used in other operations 
+overlay(places, blocks)#getting an error here
+#Checking our objects' classes 
+class(places)
+class(blocks)
+#Checking thier projections * problem detected *
+proj4string(places)#has no CRS
+proj4string(blocks)#has CRS
+# they do not match up until we define a CRS for *Places* dataset
+proj4string(places) <- CRS(proj4string(blocks))
+#then you can either use the following script to overlay those points on our polygon
+places%over%blocks
+#or
+myoverlay = over(places, blocks)
+#looking at our overlay!
+head(myoverlay)
+#for plotting the two layers
+plot(blocks)
+plot(places, add=T, col="blue")
